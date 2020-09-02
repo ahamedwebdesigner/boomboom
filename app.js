@@ -9,11 +9,11 @@ app.set('views', path.join(__dirname, 'myview'));
 
 
 app.get('/', function (req, res) {
-    res.render('index',{title:"First node application"});
+    res.render('index',{title:appconfig.appName});
 })
 
 app.get('/product', (req,res)=>{res.render('product',{
-                                        title:"THis is products page",
+                                        title:appconfig.appName,
                                         description:'THis is all about products '
                                     })})
 
