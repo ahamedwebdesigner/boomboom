@@ -8,83 +8,43 @@ app.use(express.urlencoded());
 app.use(express.json());      // if needed
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'myview'));
-
+app.set('views', path.join(__dirname, 'newViews'));
 
 
 app.get('/', function (req, res) {
-    res.render('index',{title:appconfig.appName});
-})
+    // console.log(req.query); // 1. checking for all the query params requested
+    // console.log(req.query.id);
 
-app.get('/product', (req,res)=>{res.render('product',{
-                                        title:appconfig.appName,
-                                        description:'THis is all about products '
-                                    })})
+    var students = {
+        '001':'Arshiya',
+        '002':'Shabana',
+        '003':'Reshma'    }
+    // req.query.id  == one
 
-app.get('/test',function(request,response){
+    res.render('index',{stuName:students[req.query.id]});
+});
 
-    console.log("--------------------------------------------");
-    //console.log(request.headers);
-    console.log(request.query);
-     
-    console.log("--------------------------------------------");
+app.get('/students/:id/:name/:msg',(req,res)=>{
 
-    response.render('index',{title:appconfig.appName})
-})
-
-
-
-
-app.get('/student/:id/:message',(req,res)=>{
-
-    let students = [
-        {name:'arshiya'  , place:'Bhagyanagar '   }, //0
-        {name: 'shabana' , place:'Sainagar '  },
-        {name: 'reshma'  , place:'Usa '  },
-        {name: 'Zabiulla', place:'Bangalore '  }
-    ];
-
-    let messages={
-        hellow:'Hellow how are you',
-        bye:"I am very sad to say good bye"
-    }
-      
-    console.log("--------------------------------------------");
-    console.log(req.params.id);
-    console.log("--------------------------------------------");
-    var stuid;
-    if(req.params.id>students.length-1){
-         stuid = 0;
-    }else{
-        stuid = req.params.id;
-    }
-    res.render('student',{
-                    title:appconfig.appName,
-                    studentId: students[stuid],
-                    message: messages[req.params.message]
-                });
+    console.log(req.params); // to print all the params
+    res.render('index',{stuName:'Arshiya shaik'});
 });
 
 
+app.get('/students/new',(req,res)=>{
+    res.render('students/new');
+});
 
-app.get('/create-student',(req,res)=>{
-    res.render('studentform',{
-        title:appconfig.appName
-     });
-})
-app.post('/save-student',(req,res)=>{
+
+app.post('/students/save',(req,res)=>{
 
     console.log("--------------------------------------------");
     console.log( req.body);
     console.log("--------------------------------------------");
-
-    res.render('studentSaved',{
-        title:appconfig.appName,
-        studentName:req.body.studentName
-     });
-    //res.sendStatus(200);
-})
-
+    
+    res.send("<h1> student saved </h1>");
+});
+   
 
 
 module.exports = app;
