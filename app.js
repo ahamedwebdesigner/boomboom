@@ -3,6 +3,8 @@ var app = express();
 var path = require('path');
 var appconfig = require('./config');
 
+// reading file
+var fs = require("fs");
 
 app.use(express.urlencoded());
 app.use(express.json());      // if needed
@@ -42,9 +44,33 @@ app.post('/students/save',(req,res)=>{
     console.log( req.body);
     console.log("--------------------------------------------");
     
-    res.send("<h1> student saved </h1>");
+    res.render('index',{stuName:req.body.stuName});
+
+    // res.send("<h1> "+ req.body.stuName+" student saved </h1>");
 });
    
+
+
+
+
+app.get('/readtextfile',(req,res)=>{
+
+    console.log(fs);
+    var data = fs.readFileSync('input.mykey');
+
+    // console.log(data);
+    console.log(data.toString());
+
+
+    if(data.toString() == 'DxtYPtRTZ009186'){
+        res.send("<h1> Your are authorizrd </h1>");
+    }else{
+        res.send("<h1> Your Not are authorizrd Please purchase the valied key</h1>");
+    }
+
+    res.send("<h1>  reading text file saved </h1>");
+
+})
 
 
 module.exports = app;
