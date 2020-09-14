@@ -1,76 +1,35 @@
 var express = require('express');
 var app = express();
-var path = require('path');
-var appconfig = require('./config');
-
-// reading file
-var fs = require("fs");
-
-app.use(express.urlencoded());
-app.use(express.json());      // if needed
-
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'newViews'));
+var path = require('path');    // to work with pathes
 
 
-app.get('/', function (req, res) {
-    // console.log(req.query); // 1. checking for all the query params requested
-    // console.log(req.query.id);
+// configurations
+app.use(express.urlencoded());   // this is used for handling post reqeusts
+app.use(express.json());    
 
-    var students = {
-        '001':'Arshiya',
-        '002':'Shabana',
-        '003':'Reshma'    }
-    // req.query.id  == one
+app.use(express.static(path.join(__dirname, "public"))); 
 
-    res.render('index',{stuName:students[req.query.id]});
+
+// single line 
+//app.get('/', (req, res) => res.send('Hello World!'));
+
+app.get('/', (req, res) => {
+
+    //1) sending html 
+     res.sendFile(path.join(__dirname + '/view/index.html'));
+    //res.sendFile(__dirname +  '/view/index.html');
+
+
 });
 
-app.get('/students/:id/:name/:msg',(req,res)=>{
-
-    console.log(req.params); // to print all the params
-    res.render('index',{stuName:'Arshiya shaik'});
+app.get('/about',(req,res)=>{
+    res.sendFile(path.join(__dirname + '/view/about.html'));
 });
 
-
-app.get('/students/new',(req,res)=>{
-    res.render('students/new');
+app.get('/login',(req,res)=>{
+    res.sendFile(path.join(__dirname + '/view/login.html'));
 });
 
-
-app.post('/students/save',(req,res)=>{
-
-    console.log("--------------------------------------------");
-    console.log( req.body);
-    console.log("--------------------------------------------");
-    
-    res.render('index',{stuName:req.body.stuName});
-
-    // res.send("<h1> "+ req.body.stuName+" student saved </h1>");
-});
-   
-
-
-
-
-app.get('/readtextfile',(req,res)=>{
-
-    console.log(fs);
-    var data = fs.readFileSync('input.mykey');
-
-    // console.log(data);
-    console.log(data.toString());
-
-
-    if(data.toString() == 'DxtYPtRTZ009186'){
-        res.send("<h1> Your are authorizrd </h1>");
-    }else{
-        res.send("<h1> Your Not are authorizrd Please purchase the valied key</h1>");
-    }
-
-    res.send("<h1>  reading text file saved </h1>");
-
-})
 
 
 module.exports = app;
