@@ -14,18 +14,32 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'view'));
 
 app.get('/', function (req, res) {
+
     res.render('home');
 });
 
 app.get('/makeajaxcall', function (req, res) {
-    res.send('Hello Arshiya!');  // sending string
-    // res.status(404).end();
+          // sending string
+    //res.status(404).end();
+  
+
+    setTimeout(()=>{
+        res.send('Hello Arshiya!');
+        // res.status(404).end();
+    },4000);
+    // res.render('ajaxresponse');
+    // res.send('Today luckey number is  -> '+ Math.floor(Math.random() * 10) + 1);
+   
+
 
 });
 
 
 
+app.get('/readfile', function (req, res) {
 
+    res.render('home');
+});
 
 
 module.exports = app;

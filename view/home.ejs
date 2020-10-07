@@ -4,85 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+
 </head>
 <body>
     <h1>hai</h1>
+    <button id="makeAjaxrequest">get Name</button> <small id="loading"></small>
 
-    <button id="makeAjaxrequest">get Name</button>
+    <div id="layer1"></div>
 
 
     <script>
 
-        /*
-            readyState  
-            --------------------
-
-            0 (uninitialized) or (request not initialized)
-            1 (loading) or (server connection established)
-            2 (loaded) or (request received)
-            3 (interactive) or (processing request)
-            4 (complete) or (request finished and response is ready)
-
-
-
-            HTTP response status codes 
-            ---------------------------
-            Informational responses (100–199),
-            Successful responses (200–299),
-            Redirects (300–399),
-            Client errors (400–499),
-            and Server errors (500–599).
-
-        */
-
-
-
-
+            
         document.addEventListener('DOMContentLoaded', (event) => {
+         
+            //Sintax: XMLHttpRequest.open(method, url[, async[, user[, password]]])
 
-            // console.log( document.getElementById("makeAjaxrequest"));
+            //1)
+            let httpRequest = new XMLHttpRequest();
 
-            // document.getElementById("makeAjaxrequest").click(function(event){
-            //     alert('hiiiiiiiiiiiiiiiiiii');
-            // })
+
+            httpRequest.addEventListener("progress", ()=>console.log("progress"));
+             httpRequest.addEventListener("load", ()=>{  
+                 //NOT working
+                    document.getElementById("loading").innerHTML="Loading ........." ;
+                    console.log("load")
+                });
+             httpRequest.addEventListener("loadend", ()=>{
+                document.getElementById("loading").innerHTML=" ";
+                 console.log("loadend");
+                });
+             httpRequest.addEventListener("error", ()=>console.log("error"));
+             httpRequest.addEventListener("abort", ()=>console.log("abort"));
+
+
 
             let callback = (event)=>{
-                // console.log(event);
-                // window.location.reload();
+                document.getElementById("loading").innerHTML="Loading ........."
 
 
-               //1) crated requestt object 
-               let httpRequest = new XMLHttpRequest();
-
-
-
-               //2) added event listner
-                httpRequest.onreadystatechange = (event)=>{
-
-                    //console.log(httpRequest.readyState);
-
+                   httpRequest.onreadystatechange = ()=>{
                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
-
                         if (httpRequest.status === 200) {
-                            // alert(httpRequest.responseText);
                             let div = document.createElement('h1');
                             div.append( document.createTextNode(httpRequest.responseText));
-                            document.body.appendChild(div);      
-
+                            document.body.appendChild(div);  
+                            // NOTE: this logic is moved to eventListner
+                            //  document.getElementById("loading").innerHTML=" ";
                         }else{
-                            alert("say that it is error");
+                            // document.getElementById("loading").innerHTML=" ";
+                                  alert("say that it is error");
                         }
                        
                     }
                }
+               // TOPIC:1 calling sincroniously
+               //httpRequest.open('GET', 'makeajaxcall',false);
 
-                // 3) opening connection
-                httpRequest.open('GET', 'makeajaxcall');
-         
-                // 4) sending connection
-                httpRequest.send();
+               httpRequest.open('GET', 'makeajaxcall');
+               httpRequest.send();
             
             }
+
             
             document.getElementById("makeAjaxrequest").addEventListener("click", callback);
 
