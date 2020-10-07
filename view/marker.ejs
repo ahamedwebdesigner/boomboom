@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marker Js</title>
+
+<style>
+
+.container {
+            width: %100;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        min-height: 400px;
+    }
+
+    .centered-div {
+        width: 80%;
+        height: 190px;
+        margin: 10px;
+        padding: 5px;
+        background: blue;
+        color: white;
+    }
+
+#myModel1{
+    stroke: red;
+    stroke-width: 10;
+  stroke-linecap: butt;
+  stroke-dasharray: 1;
+}
+
+#svgGroup path{
+    stroke: white;
+    stroke-width: 2;
+
+}
+
+#blueprint-canvas {
+    background-color: #3177C6;
+    margin-bottom: 1em;
+    overflow: hidden;
+    min-height: 600px;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+}
+#grid {
+    height: 98%; 
+    overflow: hidden;
+    position:absolute;
+    width: 98%; 
+    z-index:0 ;
+}
+.grid-line-1 {
+    stroke: #5B9DE3;
+    opacity: 0.6;
+}
+
+.grid-line-10 {
+    stroke: #5B9DE3;
+    opacity: 0.8;
+}
+
+#container{
+    position: relative;
+    color:#fff;
+    z-index: 1;
+}
+</style>
+
+</head>
+<body>
+    <h1>Marker JS Example </h1>
+    <hr>
+    <section id="blueprint-canvas">
+        <svg id="grid">
+            <defs>
+                <pattern id="pattern1" x="0" y="0" width=".1" height=".1">
+                    <line x1="0" y1="0" x2="0" y2="100%" class="grid-line-1"></line>
+                    <line x1="0" y1="0" x2="100%" y2="0" class="grid-line-1"></line>
+                </pattern>
+                <pattern id="pattern10" x="0" y="0" width="1" height="1">
+                    <line x1="0" y1="0" x2="0" y2="100%" class="grid-line-10"></line>
+                    <line x1="0" y1="0" x2="100%" y2="0" class="grid-line-10"></line>
+                </pattern>
+                <pattern id="gridPattern" x="32" y="32" width="370.65421800000007" height="370.65421800000007" patternUnits="userSpaceOnUse" patternTransform="translate(8.64299099999991,374.98627500000003)">
+                    <rect id="gridPatternFill" fill="url(#pattern1)" width="370.65421800000007" height="370.65421800000007" x="0" y="0"></rect>
+                    <rect fill="url(#pattern10)" width="100%" height="100%" x="0" y="0"></rect>
+                </pattern>
+            </defs>
+            <rect fill="url(#gridPattern)" width="100%" height="100%" x="0" y="0"></rect>
+            <g id="crosshairs" transform="translate(40.64299099999991,406.98627500000003)">
+                <line x1="-100%" x2="100%" y1="0" y2="0"></line>
+                <line x1="0" x2="0" y1="-100%" y2="100%"></line>
+            </g>
+        </svg>
+
+        <div id="container">
+            <h1>hellow all</h1>
+        </div>
+
+    </section>
+
+    <script src="http://maker.js.org/target/js/browser.maker.js" type="text/javascript"></script>
+    <script src="https://pomax.github.io/bezierjs/bezier.js" type="text/javascript"></script>
+    <script src="http://opentype.js.org/dist/opentype.js" type="text/javascript"></script>
+    <script type="module"  src="/javascripts/marker_one.js"></script>
+
+  
+
+</body>
+</html>
