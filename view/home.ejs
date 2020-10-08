@@ -51,7 +51,7 @@
 <body>
     <h1>hai</h1>
     <button id="makeAjaxrequest">get Name</button> 
-    <div id="layer1"></div>
+    <div id="container"></div>
 
 
     <div id="myModal" class="modal">
@@ -75,9 +75,7 @@
 
             httpRequest.addEventListener("progress", ()=>console.log("progress"));
              httpRequest.addEventListener("load", ()=>{  
-                 //NOT working
-                    document.getElementById("loading").innerHTML="Loading ........." ;
-                    console.log("load")
+   
                 });
              httpRequest.addEventListener("loadend", ()=>{
                 document.getElementById("myModal").style.display = "none";
@@ -95,11 +93,20 @@
                    httpRequest.onreadystatechange = ()=>{
                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
                         if (httpRequest.status === 200) {
-                            let div = document.createElement('h1');
-                            div.append( document.createTextNode(httpRequest.responseText));
-                            document.body.appendChild(div);  
-                            // NOTE: this logic is moved to eventListner
-                            //  document.getElementById("loading").innerHTML=" ";
+                            // let div = document.createElement('h1');
+                            // div.append( document.createTextNode(httpRequest.responseText));
+                            // document.body.appendChild(div);  
+
+                            // console.log(httpRequest.responseText);
+                            // console.log(httpRequest.responseXML);
+                            // document.getElementById('container').innerHTML =  httpRequest.responseText;
+                            //document.getElementById('container').innerHTML =  httpRequest.responseXML;
+                        
+                            
+                            var xmlDoc =httpRequest.responseXML;
+                            console.log(xmlDoc);
+                             document.getElementById('container').innerHTML =  xmlDoc.getElementsByTagName('response')[0].innerHTML;
+
                         }else{
                             // document.getElementById("loading").innerHTML=" ";
                                   alert("say that it is error");

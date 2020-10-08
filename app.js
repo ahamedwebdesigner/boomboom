@@ -24,10 +24,14 @@ app.get('/makeajaxcall', function (req, res) {
   
 
     setTimeout(()=>{
-        res.send('Hello Arshiya!');
+        // res.send('Hello Arshiya!');
         // res.status(404).end();
-    },4000);
-    // res.render('ajaxresponse');
+            
+            // res.set('Content-Type', 'text/xml');
+            res.type('application/xml');
+            res.render('ajaxresponse');
+    },1000);
+
     // res.send('Today luckey number is  -> '+ Math.floor(Math.random() * 10) + 1);
    
 
