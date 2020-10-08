@@ -6,20 +6,68 @@
     <title>Document</title>
 
 
+    <style>
+           .modal {
+               /* Hidden by default */
+                display: none; 
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+           }
+
+           .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto; /* 15% from the top and centered */
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%; /* Could be more or less, depending on screen size */
+          }
+
+                          /* The Close Button */
+           .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                }
+
+                .close:hover,
+                .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+                }
+
+
+    </style>
+
 </head>
 <body>
     <h1>hai</h1>
-    <button id="makeAjaxrequest">get Name</button> <small id="loading"></small>
-
+    <button id="makeAjaxrequest">get Name</button> 
     <div id="layer1"></div>
 
 
-    <script>
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Loading......</p>
+        </div>
+    </div>
 
-            
+
+
+    <script>
+           
         document.addEventListener('DOMContentLoaded', (event) => {
-         
-            //Sintax: XMLHttpRequest.open(method, url[, async[, user[, password]]])
+                     //Sintax: XMLHttpRequest.open(method, url[, async[, user[, password]]])
 
             //1)
             let httpRequest = new XMLHttpRequest();
@@ -32,7 +80,7 @@
                     console.log("load")
                 });
              httpRequest.addEventListener("loadend", ()=>{
-                document.getElementById("loading").innerHTML=" ";
+                document.getElementById("myModal").style.display = "none";
                  console.log("loadend");
                 });
              httpRequest.addEventListener("error", ()=>console.log("error"));
@@ -41,7 +89,7 @@
 
 
             let callback = (event)=>{
-                document.getElementById("loading").innerHTML="Loading ........."
+                document.getElementById("myModal").style.display = "block";
 
 
                    httpRequest.onreadystatechange = ()=>{
@@ -61,7 +109,6 @@
                }
                // TOPIC:1 calling sincroniously
                //httpRequest.open('GET', 'makeajaxcall',false);
-
                httpRequest.open('GET', 'makeajaxcall');
                httpRequest.send();
             
