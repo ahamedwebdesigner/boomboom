@@ -121,7 +121,7 @@ Sintax: XMLHttpRequest.open(method, url[, async[, user[, password]]])
 
 # adding event listners
 
-           httpRequest.addEventListener("progress", ()=>console.log("progress"));
+            httpRequest.addEventListener("progress", ()=>console.log("progress"));
              httpRequest.addEventListener("load", ()=>console.log("load"));
              httpRequest.addEventListener("loadend", ()=>console.log("loadend"));
              httpRequest.addEventListener("error", ()=>console.log("error"));

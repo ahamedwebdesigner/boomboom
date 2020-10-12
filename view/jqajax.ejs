@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boom Boom</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>JqAJAX</title>
+  </head>
+  <body>
+
+
+    <div class="container">
+        <h1>Hello, world!</h1>
+        <button id="loadDATA" class="btn btn-primary">load data</button>
+        <input type="number" name="searchID" id="id" min="10" max="30" step="10">
+        <input type="name" name="username">
+
+
+        <hr>
+        <div id="dataloder"></div>
+
+      </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+
+
+        $( document ).ready(function() {
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.onreadystatechange = ()=>{
+                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                        if (httpRequest.status === 200) {
+                            console.log( httpRequest.responseText);
+                            document.getElementById('dataloder').innerHTML =  httpRequest.responseText;
+                        }}};
+
+
+
+            $('#loadDATA').click(()=>{
+
+                var id = document.getElementsByName('searchID')[0].value;
+                var username = document.getElementsByName('username')[0].value;
+                var params = "id="+id+"&userName="+username+"&uid=rtrotooond";
+              // httpRequest.open('GET', 'senddata');
+                httpRequest.open("GET", 'senddata'+"?"+params);
+                httpRequest.send();
+            });
+
+        });
+
+        // document.addEventListener('DOMContentLoaded', (event) => {});
+
+
+    </script>
+  </body>
+</html>

@@ -14,7 +14,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'view'));
 
 app.get('/', function (req, res) {
-
     res.render('home');
 });
 
@@ -43,6 +42,37 @@ app.get('/makeajaxcall', function (req, res) {
 app.get('/readfile', function (req, res) {
 
     res.render('home');
+});
+
+
+
+
+
+app.get('/jqajax', function (req, res) {
+    res.render('jqajax');
+});
+
+app.get('/senddata', function (req, res) {
+
+    let students = [
+        {id:10,name:'Arshiya'},
+        {id:20,name:'scott'},
+        {id:30,name:'tiger'}
+    ]
+    setTimeout(()=>{
+        console.log("================");
+         console.log(req.query);
+        // console.log(req.params);
+        console.log("================");
+
+        let student = students.find(stu => stu.id == req.query.id);
+
+        console.log("================");
+        console.log(student);
+        console.log("================");
+        res.send('Hello '+student.name +'!');
+    
+    },1000);
 });
 
 
