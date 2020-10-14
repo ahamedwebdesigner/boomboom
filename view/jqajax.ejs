@@ -13,14 +13,60 @@
 
 
     <div class="container">
-        <h1>Hello, world!</h1>
-        <button id="loadDATA" class="btn btn-primary">load data</button>
-        <input type="number" name="searchID" id="id" min="10" max="30" step="10">
-        <input type="name" name="username">
+        <h1>Students, Management</h1>
+       
+        <div class="row" style="border-bottom: 1px solid #333;padding-bottom:10pt;">
+          <div class="col-12">
+            <h3>Search Student</h3>
+          </div>
+          
+          <div class="col-6">
+            <button id="loadDATA" class="btn btn-primary">load data</button>
+            <input type="number" name="searchID" id="id" min="10" max="100" step="10">
+          </div>
+          <div class="col-6">
+            <div id="dataloder"></div>
+          </div>
+        </div>
+ 
+        <div class="row" style="border-bottom: 1px solid #333;padding-bottom:10pt;">
+          <div class="col-6">
+            <h2>Create student</h2>
 
 
-        <hr>
-        <div id="dataloder"></div>
+            <form id="createStudent">
+              <div class="form-group"> 
+                <label for="exampleInputEmail1">ID</label>
+                <input type="number" class="form-control" name="studentsId" min="30" max="100" step="10">
+             
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Name</label>
+                <input type="text" class="form-control" name="studentName" placeholder="Name">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Place</label>
+                <input type="text" class="form-control" name="studentPlace" placeholder="plase">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+
+
+          </div>
+
+          <div class="col-6">
+            <h1>List of all students</h1>
+            <div id="loadstudents"></div>
+          </div>
+
+        </div>
+
+
+
+      
+
 
       </div>
 
@@ -36,30 +82,111 @@
 
 
         $( document ).ready(function() {
+
+          loadStudentsData();
+
+          // -- 1) searching data 
             let httpRequest = new XMLHttpRequest();
 
             httpRequest.onreadystatechange = ()=>{
                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
                         if (httpRequest.status === 200) {
-                            console.log( httpRequest.responseText);
-                            document.getElementById('dataloder').innerHTML =  httpRequest.responseText;
+                          let obj = JSON.parse( httpRequest.responseText);
+                          console.log(typeof obj);
+  
+
+                         var Heading = document.createElement("h2");                 // Create a <p> element
+                          Heading.innerHTML = obj.name;   
+
+
+                         var para = document.createElement("small");                 // Create a <p> element
+                          para.innerHTML = " "+obj.place;  
+                         document.getElementById("dataloder").appendChild(Heading).appendChild(para);
+                      
                         }}};
-
-
 
             $('#loadDATA').click(()=>{
 
                 var id = document.getElementsByName('searchID')[0].value;
-                var username = document.getElementsByName('username')[0].value;
-                var params = "id="+id+"&userName="+username+"&uid=rtrotooond";
+               
+                var params = "id="+id;
               // httpRequest.open('GET', 'senddata');
-                httpRequest.open("GET", 'senddata'+"?"+params);
+                httpRequest.open("GET", 'student-search'+"?"+params);
                 httpRequest.send();
             });
 
+
+     // -- 2) submitting data
+
+            let xhr = new XMLHttpRequest();
+       
+            xhr.onreadystatechange =()=>{
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                          alert(xhr.responseText);
+                          loadStudentsData();
+                        }
+                    }
+                  };
+
+
+            $('#createStudent').submit((event)=>{
+
+              event.preventDefault();
+
+                var userdata='';
+                userdata+="id="+document.getElementsByName('studentsId')[0].value+'&';
+                userdata+="name="+document.getElementsByName('studentName')[0].value+'&';
+                userdata+="place="+document.getElementsByName('studentPlace')[0].value;
+
+                  console.log(userdata);
+                     xhr.open("POST", '/store-student');
+                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                 xhr.send(userdata);
+             
+            });
+            
+
+
+          // 3 loading data 
+
+txt = "";
+          function loadStudentsData(){
+            txt = "";
+            let xhrDataLoder = new XMLHttpRequest();
+          xhrDataLoder.onreadystatechange =()=>{
+                    if (xhrDataLoder.readyState === xhrDataLoder.DONE) {
+                        if (xhrDataLoder.status === 200) {
+                          // console.log(" loaded all students -----------");
+                          // console.log(xhrDataLoder.responseText);
+                          // console.log(" loaded all students -----------");
+
+                          let students = JSON.parse( xhrDataLoder.responseText);
+                          //   console.log(" loaded all students -----------");
+                          // console.log(xhrDataLoder.responseText);
+                          // console.log(students);
+                          // console.log(" loaded all students -----------");
+
+                            txt += "<table class='table'>";
+                            txt += "<tr><th>ID</th> <th>Name</th><th>Place</th></tr>";
+                            for (x in students) {
+                              txt += "<tr>"+"<td>" + students[x].id + "</td>" +"<td>" + students[x].name + "</td>"+"<td>" + students[x].place + "</td>"+"</tr>";
+                            }
+                            
+                            txt += "</table>";
+                            document.getElementById("loadstudents").innerHTML = txt;
+
+
+                        }
+                    }
+                  };
+            xhrDataLoder.open("GET", '/all-students');
+            xhrDataLoder.send();
+          }
+
         });
 
-        // document.addEventListener('DOMContentLoaded', (event) => {});
+       
 
 
     </script>

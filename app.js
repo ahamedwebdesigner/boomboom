@@ -45,35 +45,42 @@ app.get('/readfile', function (req, res) {
 });
 
 
-
+let students = [
+    {id:10,name:'Arshiya',place:'anantapur'},
+    {id:20,name:'scott',place:'America'},
+    {id:30,name:'tiger',place:'Amazon'}
+]
 
 
 app.get('/jqajax', function (req, res) {
     res.render('jqajax');
 });
 
-app.get('/senddata', function (req, res) {
-
-    let students = [
-        {id:10,name:'Arshiya'},
-        {id:20,name:'scott'},
-        {id:30,name:'tiger'}
-    ]
-    setTimeout(()=>{
-        console.log("================");
-         console.log(req.query);
-        // console.log(req.params);
-        console.log("================");
-
+app.get('/student-search', function (req, res) {
+        setTimeout(()=>{
         let student = students.find(stu => stu.id == req.query.id);
-
-        console.log("================");
-        console.log(student);
-        console.log("================");
-        res.send('Hello '+student.name +'!');
-    
-    },1000);
+          res.json(student)
+     },1000);
 });
+
+app.post('/store-student', function (req, res) {
+
+    console.log("================");
+    console.log(req.body)
+  console.log("================");
+    setTimeout(()=>{
+        students.push(req.body)
+        res.send('submitted data');
+ },1000);
+});
+
+
+app.get('/all-students', function (req, res) {
+    setTimeout(()=>{
+         res.json(students)
+ },1000);
+});
+
 
 
 module.exports = app;
