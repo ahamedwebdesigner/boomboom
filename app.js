@@ -57,6 +57,10 @@ app.get('/jqajax', function (req, res) {
 });
 
 app.get('/student-search', function (req, res) {
+    console.log("================");
+    // console.log(JSON.stringify(req.headers))
+    console.log(req.get('x-userName'))
+    console.log("================");
         setTimeout(()=>{
         let student = students.find(stu => stu.id == req.query.id);
           res.json(student)
@@ -69,16 +73,16 @@ app.post('/store-student', function (req, res) {
     console.log(req.body)
   console.log("================");
     setTimeout(()=>{
-        students.push(req.body)
-        res.send('submitted data');
- },1000);
+            students.push(req.body)
+            res.send('submitted data');
+    },4000);
 });
 
 
 app.get('/all-students', function (req, res) {
     setTimeout(()=>{
          res.json(students)
- },1000);
+ },4000);
 });
 
 

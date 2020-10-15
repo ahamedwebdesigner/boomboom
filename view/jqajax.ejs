@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <title>JqAJAX</title>
+    
+
   </head>
   <body>
+
 
 
     <div class="container">
@@ -52,7 +55,9 @@
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
 
-
+            <div id="submittedStatus" class="alert alert-primary" role="alert" style="display: none;">
+              user data submitted
+            </div>
 
           </div>
 
@@ -62,13 +67,30 @@
           </div>
 
         </div>
-
-
-
-      
-
-
       </div>
+
+
+
+
+      <div class="modal fade" id="Loding-modal" role="dialog">
+        <div class="modal-dialog">
+        
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Loading ..........</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            
+              <div class="modal-footer">
+                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
 
 
 
@@ -82,6 +104,9 @@
 
 
         $( document ).ready(function() {
+          // $("#Loding-modal").modal("show");
+          // $("#Loding-modal").modal("hide");
+
 
           loadStudentsData();
 
@@ -102,16 +127,21 @@
                          var para = document.createElement("small");                 // Create a <p> element
                           para.innerHTML = " "+obj.place;  
                          document.getElementById("dataloder").appendChild(Heading).appendChild(para);
+                         $("#Loding-modal").modal("hide");
                       
                         }}};
 
-            $('#loadDATA').click(()=>{
+                        
 
+                        
+            $('#loadDATA').click(()=>{
+              $("#Loding-modal").modal("show");
                 var id = document.getElementsByName('searchID')[0].value;
                
                 var params = "id="+id;
               // httpRequest.open('GET', 'senddata');
                 httpRequest.open("GET", 'student-search'+"?"+params);
+                httpRequest.setRequestHeader("x-userName", "Arshiya");
                 httpRequest.send();
             });
 
@@ -123,15 +153,23 @@
             xhr.onreadystatechange =()=>{
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {
-                          alert(xhr.responseText);
+                          // alert(xhr.responseText);
+                          document.getElementById("submittedStatus").style.display="block";
                           loadStudentsData();
+                          $("#Loding-modal").modal("hide");
+
+                          setTimeout(()=>{
+                            document.getElementById("submittedStatus").style.display="none";
+                        },4000);
+
+
                         }
                     }
                   };
 
 
             $('#createStudent').submit((event)=>{
-
+              $("#Loding-modal").modal("show");
               event.preventDefault();
 
                 var userdata='';
@@ -152,6 +190,7 @@
 
 txt = "";
           function loadStudentsData(){
+            $("#Loding-modal").modal("show");
             txt = "";
             let xhrDataLoder = new XMLHttpRequest();
           xhrDataLoder.onreadystatechange =()=>{
@@ -175,7 +214,7 @@ txt = "";
                             
                             txt += "</table>";
                             document.getElementById("loadstudents").innerHTML = txt;
-
+                            $("#Loding-modal").modal("hide");
 
                         }
                     }
