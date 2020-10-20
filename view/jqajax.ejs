@@ -117,16 +117,25 @@
                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
                         if (httpRequest.status === 200) {
                           let obj = JSON.parse( httpRequest.responseText);
-                          console.log(typeof obj);
+                          console.log( obj);
   
+                          if(obj.Message){
+                            var errorHeading = document.createElement("h2");
+                            errorHeading.innerHTML = obj.Message;   
+                            document.getElementById("dataloder").appendChild(errorHeading);
+                          }else{
+                                var Heading = document.createElement("h2");                 // Create a <p> element
+                              Heading.innerHTML = obj.name;   
 
-                         var Heading = document.createElement("h2");                 // Create a <p> element
-                          Heading.innerHTML = obj.name;   
 
-
-                         var para = document.createElement("small");                 // Create a <p> element
-                          para.innerHTML = " "+obj.place;  
-                         document.getElementById("dataloder").appendChild(Heading).appendChild(para);
+                            var para = document.createElement("small");                 // Create a <p> element
+                              para.innerHTML = " "+obj.place;  
+                            document.getElementById("dataloder").appendChild(Heading).appendChild(para);
+                            }
+                     
+                       
+                       
+                       
                          $("#Loding-modal").modal("hide");
                       
                         }}};
@@ -207,14 +216,16 @@ txt = "";
                           // console.log(" loaded all students -----------");
 
                             txt += "<table class='table'>";
-                            txt += "<tr><th>ID</th> <th>Name</th><th>Place</th></tr>";
+                            txt += "<tr><th>ID</th> <th>Name</th><th>Place</th> <th>Delet</th>  </tr>";
                             for (x in students) {
-                              txt += "<tr>"+"<td>" + students[x].id + "</td>" +"<td>" + students[x].name + "</td>"+"<td>" + students[x].place + "</td>"+"</tr>";
+                              txt += "<tr class='student'> "+"<td>" + students[x].id + "</td>" +"<td>" + students[x].name + "</td>"+"<td>" + students[x].place + "</td>"+"<td> <button class='btn btn-primary' data-id="+students[x].id+">delet  <span class='spinner-border spinner-border-sm'></span> </button> </td>"+"</tr>";
                             }
                             
                             txt += "</table>";
                             document.getElementById("loadstudents").innerHTML = txt;
                             $("#Loding-modal").modal("hide");
+
+                            adddeletEventsTODOm();
 
                         }
                     }
@@ -222,6 +233,43 @@ txt = "";
             xhrDataLoder.open("GET", '/all-students');
             xhrDataLoder.send();
           }
+
+
+          //----------------------------- delet
+
+
+
+
+          let deletXhr = new XMLHttpRequest();
+       
+          deletXhr.onreadystatechange =()=>{
+               if (deletXhr.readyState === XMLHttpRequest.DONE) {
+                   if (deletXhr.status === 200) {
+                    loadStudentsData();
+                    $("#Loding-modal").modal("hide");  
+
+                   }
+               }
+             };
+
+
+      
+          function adddeletEventsTODOm(){
+            
+          $('.student button > span').hide();
+            var elements = $('.student button');
+              elements.click((event)=>{
+             
+                $(event.target).find("span").show();
+                var stuid = "id="+$(event.target).data('id');
+                          
+                // deletXhr.open("GET", 'student-delet'+"?"+stuid);
+                deletXhr.open("DELETE", 'student-delet'+"?"+stuid);
+                deletXhr.send();
+              })
+            // console.log(elements);
+          }
+         
 
         });
 

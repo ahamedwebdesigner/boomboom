@@ -57,13 +57,16 @@ app.get('/jqajax', function (req, res) {
 });
 
 app.get('/student-search', function (req, res) {
-    console.log("================");
-    // console.log(JSON.stringify(req.headers))
-    console.log(req.get('x-userName'))
-    console.log("================");
+
         setTimeout(()=>{
         let student = students.find(stu => stu.id == req.query.id);
-          res.json(student)
+        if(undefined!=student){
+            res.json(student)
+        }else{
+            res.json({Message:'student not found'});
+        }
+      
+       
      },1000);
 });
 
@@ -84,6 +87,21 @@ app.get('/all-students', function (req, res) {
          res.json(students)
  },4000);
 });
+
+// app.get('/student-delet', function (req, res) {
+    app.delete('/student-delet', function (req, res) {
+
+            students = students.filter(function( obj ) {
+                return obj.id != req.query.id;
+            });
+
+            setTimeout(()=>{
+                    res.json({status:'success',message:"student deleted successefully"})
+            },4000);
+
+
+});
+
 
 
 
