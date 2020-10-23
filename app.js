@@ -58,6 +58,10 @@ app.get('/jqajax', function (req, res) {
 
 app.get('/student-search', function (req, res) {
 
+    console.log("================");
+    console.log(req.query.id)
+  console.log("================");
+
         setTimeout(()=>{
         let student = students.find(stu => stu.id == req.query.id);
         if(undefined!=student){
@@ -85,7 +89,7 @@ app.post('/store-student', function (req, res) {
 app.get('/all-students', function (req, res) {
     setTimeout(()=>{
          res.json(students)
- },4000);
+ },1000);
 });
 
 // app.get('/student-delet', function (req, res) {

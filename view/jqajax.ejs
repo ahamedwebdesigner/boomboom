@@ -96,7 +96,11 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
@@ -104,15 +108,10 @@
 
 
         $( document ).ready(function() {
-          // $("#Loding-modal").modal("show");
-          // $("#Loding-modal").modal("hide");
-
-
-          loadStudentsData();
+            loadStudentsData();
 
           // -- 1) searching data 
             let httpRequest = new XMLHttpRequest();
-
             httpRequest.onreadystatechange = ()=>{
                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
                         if (httpRequest.status === 200) {
@@ -132,18 +131,10 @@
                               para.innerHTML = " "+obj.place;  
                             document.getElementById("dataloder").appendChild(Heading).appendChild(para);
                             }
-                     
-                       
-                       
-                       
-                         $("#Loding-modal").modal("hide");
+                      $("#Loding-modal").modal("hide");
                       
                         }}};
-
-                        
-
-                        
-            $('#loadDATA').click(()=>{
+           function searchById(){
               $("#Loding-modal").modal("show");
                 var id = document.getElementsByName('searchID')[0].value;
                
@@ -152,7 +143,38 @@
                 httpRequest.open("GET", 'student-search'+"?"+params);
                 httpRequest.setRequestHeader("x-userName", "Arshiya");
                 httpRequest.send();
-            });
+            }
+
+            function JQsearchById(){
+
+              //$.get(url, {},()=>{})
+              //$("[name='searchID']")
+              //$.get("student-search",{id: document.getElementsByName('searchID')[0].value} ,function(data, status){
+
+              $.get("student-search",{id: $("[name='searchID']").val()} ,function(data, status){
+
+                $("<h2/>",{
+                      // id: "a",
+                      text:data.name +" ",
+                      // style:"background-color:red;height:50px;",
+                      // class: "classA"
+                    }).append($("<small>").text(data.place)).appendTo("#dataloder");
+
+                  console.log("==============");
+                  console.log(data);
+                  console.log(status);
+                  console.log("==============");
+                  
+              });
+            }
+                        
+            // $('#loadDATA').click(searchById);
+
+
+            // using Jquery
+            $('#loadDATA').click(JQsearchById);
+
+
 
 
      // -- 2) submitting data
