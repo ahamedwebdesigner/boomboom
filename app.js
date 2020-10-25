@@ -82,14 +82,14 @@ app.post('/store-student', function (req, res) {
     setTimeout(()=>{
             students.push(req.body)
             res.send('submitted data');
-    },4000);
+    },1000);
 });
 
 
 app.get('/all-students', function (req, res) {
     setTimeout(()=>{
          res.json(students)
- },1000);
+ },4000);
 });
 
 // app.get('/student-delet', function (req, res) {
@@ -101,7 +101,7 @@ app.get('/all-students', function (req, res) {
 
             setTimeout(()=>{
                     res.json({status:'success',message:"student deleted successefully"})
-            },4000);
+            },1000);
 
 
 });
