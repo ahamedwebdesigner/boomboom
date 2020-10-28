@@ -18,21 +18,21 @@ app.get('/', function (req, res) {
 });
 
 app.get('/makeajaxcall', function (req, res) {
-          // sending string
+    // sending string
     //res.status(404).end();
-  
 
-    setTimeout(()=>{
+
+    setTimeout(() => {
         // res.send('Hello Arshiya!');
         // res.status(404).end();
-            
-            // res.set('Content-Type', 'text/xml');
-            res.type('application/xml');
-            res.render('ajaxresponse');
-    },1000);
+
+        // res.set('Content-Type', 'text/xml');
+        res.type('application/xml');
+        res.render('ajaxresponse');
+    }, 1000);
 
     // res.send('Today luckey number is  -> '+ Math.floor(Math.random() * 10) + 1);
-   
+
 
 
 });
@@ -46,9 +46,9 @@ app.get('/readfile', function (req, res) {
 
 
 let students = [
-    {id:10,name:'Arshiya',place:'anantapur'},
-    {id:20,name:'scott',place:'America'},
-    {id:30,name:'tiger',place:'Amazon'}
+    { id: 10, name: 'Arshiya', place: 'anantapur' },
+    { id: 20, name: 'scott', place: 'America' },
+    { id: 30, name: 'tiger', place: 'Amazon' }
 ]
 
 
@@ -57,51 +57,52 @@ app.get('/jqajax', function (req, res) {
 });
 
 app.get('/student-search', function (req, res) {
+    // res.status(404).end()  
 
-    console.log("================");
-    console.log(req.query.id)
-  console.log("================");
+    // console.log("================");
+    // console.log(req.query.id)
+    // console.log("================");
 
-        setTimeout(()=>{
+    setTimeout(() => {
         let student = students.find(stu => stu.id == req.query.id);
-        if(undefined!=student){
+        if (undefined != student) {
             res.json(student)
-        }else{
-            res.json({Message:'student not found'});
+        } else {
+            res.json({ Message: 'student not found' });
         }
-      
-       
-     },1000);
+    }, 1000);
+
+
 });
 
 app.post('/store-student', function (req, res) {
 
     console.log("================");
     console.log(req.body)
-  console.log("================");
-    setTimeout(()=>{
-            students.push(req.body)
-            res.send('submitted data');
-    },1000);
+    console.log("================");
+    setTimeout(() => {
+        students.push(req.body)
+        res.send('submitted data');
+    }, 1000);
 });
 
 
 app.get('/all-students', function (req, res) {
-    setTimeout(()=>{
-         res.json(students)
- },4000);
+    setTimeout(() => {
+        res.json(students)
+    }, 4000);
 });
 
 // app.get('/student-delet', function (req, res) {
-    app.delete('/student-delet', function (req, res) {
+app.delete('/student-delet', function (req, res) {
 
-            students = students.filter(function( obj ) {
-                return obj.id != req.query.id;
-            });
+    students = students.filter(function (obj) {
+        return obj.id != req.query.id;
+    });
 
-            setTimeout(()=>{
-                    res.json({status:'success',message:"student deleted successefully"})
-            },1000);
+    setTimeout(() => {
+        res.json({ status: 'success', message: "student deleted successefully" })
+    }, 1000);
 
 
 });

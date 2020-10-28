@@ -1,17 +1,27 @@
 const StuAjax = {
     init: () => {
         $('#loadDATA').click(StuAjax.JQsearchById);
+        $('#createStudent').submit(StuAjax.jqsubmitStudent);
         StuAjax.loadStudentsData();
-        $('#createStudent').submit(StuAjax.submitStudent);
+
     },
     JQsearchById: () => {
-        $.get("student-search", { id: $("[name='searchID']").val() }, function (data, status) {
-            $("<h2/>", { text: data.name + " ", }).append($("<small>").text(data.place)).appendTo("#dataloder");
-        });
-    },
+        StuAjax.showModel()
+        let searchstu = $.get(
+                "student-search", 
+                { id: $("[name='searchID']").val() }, 
+                function (data, status) {
+                         $("<h2/>", { text: data.name + " ", }).append($("<small>").text(data.place)).appendTo("#dataloder");
+                         StuAjax.hideModel();
+                }).always(function() {
+                    StuAjax.hideModel();
+                  });
+        
 
+
+    },
     loadStudentsData: () => {
-        $("#Loding-modal").modal("show");
+      
         txt = "";
         let xhrDataLoder = new XMLHttpRequest();
         xhrDataLoder.onreadystatechange = () => {
@@ -48,7 +58,10 @@ const StuAjax = {
                     }, 4000);
 
 
+                }{
+                    // failure functionality
                 }
+
             }
         };
 
@@ -65,6 +78,36 @@ const StuAjax = {
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(userdata);
     },
+
+    jqsubmitStudent:(event)=>{  // using javascript
+        $("#Loding-modal").modal("show");
+        event.preventDefault();
+
+        // $.post(url,{},()=>{}).done(()=>{}).fail(()=>{})
+        $.post(
+                '/store-student',  
+                 {  id: document.getElementsByName('studentsId')[0].value,
+                    name:document.getElementsByName('studentName')[0].value,
+                    place:document.getElementsByName('studentPlace')[0].value,
+                 }, 
+                 function(data, status, xhr) {
+                    document.getElementById("submittedStatus").style.display = "block";
+                    StuAjax.loadStudentsData();
+                    
+                    setTimeout(() => {
+                        document.getElementById("submittedStatus").style.display = "none";
+                    }, 4000);
+                })
+        .done(function() { 
+                $("#Loding-modal").modal("hide");
+        })
+        .fail(function(jqxhr, settings, ex) { 
+            alert('failed, ' + ex);
+         });
+
+
+    },
+
     adddeletEventsTODOm: () => {
         let deletXhr = new XMLHttpRequest();
 
@@ -86,7 +129,14 @@ const StuAjax = {
             deletXhr.open("DELETE", 'student-delet' + "?" + stuid);
             deletXhr.send();
         })
+    },
+    showModel:()=>{
+        $("#Loding-modal").modal("show");
+    },
+    hideModel:()=>{
+        $("#Loding-modal").modal("hide");
     }
+
 };
 $(document).ready(StuAjax.init);
 
