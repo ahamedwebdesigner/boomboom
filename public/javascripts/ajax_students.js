@@ -69,9 +69,9 @@ const StuAjax = {
         event.preventDefault();
 
         var userdata = '';
-        userdata += "id=" + document.getElementsByName('studentsId')[0].value + '&';
-        userdata += "name=" + document.getElementsByName('studentName')[0].value + '&';
-        userdata += "place=" + document.getElementsByName('studentPlace')[0].value;
+        userdata += "id=" + document.getElementsByName('id')[0].value + '&';
+        userdata += "name=" + document.getElementsByName('name')[0].value + '&';
+        userdata += "place=" + document.getElementsByName('place')[0].value;
 
         console.log(userdata);
         xhr.open("POST", '/store-student');
@@ -80,20 +80,47 @@ const StuAjax = {
     },
 
     jqsubmitStudent:(event)=>{  // using javascript
-        $("#Loding-modal").modal("show");
         event.preventDefault();
+
+        console.log($("#createStudent").serialize());
+
+
+
+
+        $("#Loding-modal").modal("show");
+
+
+        // 1.selecting form fields using javascript
+        var formdata ={
+            id: document.getElementsByName('id')[0].value,
+            name:document.getElementsByName('name')[0].value,
+            place:document.getElementsByName('place')[0].value,
+        };
+
+           // 2.selecting form fields using jquery
+        var JQformdata ={
+            id: $("[name='id']").val(),
+            name:$("[name='name']").val() ,
+            place:$("[name='place']").val(),
+        };
+
 
         // $.post(url,{},()=>{}).done(()=>{}).fail(()=>{})
         $.post(
                 '/store-student',  
-                 {  id: document.getElementsByName('studentsId')[0].value,
-                    name:document.getElementsByName('studentName')[0].value,
-                    place:document.getElementsByName('studentPlace')[0].value,
-                 }, 
+               // JQformdata, 
+               $("#createStudent").serialize(),  // form serilized string
                  function(data, status, xhr) {
+                    console.log("===============");
+                    console.log(data);
+                    console.log(status);
+                    console.log(xhr);
+
+                    console.log("===============");
+
                     document.getElementById("submittedStatus").style.display = "block";
                     StuAjax.loadStudentsData();
-                    
+
                     setTimeout(() => {
                         document.getElementById("submittedStatus").style.display = "none";
                     }, 4000);

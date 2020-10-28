@@ -76,14 +76,18 @@ app.get('/student-search', function (req, res) {
 });
 
 app.post('/store-student', function (req, res) {
+    // res.status(304).end();  
 
     console.log("================");
-    console.log(req.body)
+    console.log(req.body);
     console.log("================");
+
     setTimeout(() => {
         students.push(req.body)
         res.send('submitted data');
     }, 1000);
+
+
 });
 
 
