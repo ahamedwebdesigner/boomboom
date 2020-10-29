@@ -2,7 +2,8 @@ const StuAjax = {
     init: () => {
         $('#loadDATA').click(StuAjax.JQsearchById);
         $('#createStudent').submit(StuAjax.jqsubmitStudent);
-        StuAjax.loadStudentsData();
+        // StuAjax.loadStudentsData();
+        StuAjax.jQloadStudentsData();
 
     },
     JQsearchById: () => {
@@ -43,6 +44,71 @@ const StuAjax = {
         xhrDataLoder.open("GET", '/all-students');
         xhrDataLoder.send();
     },
+
+    jQloadStudentsData:()=>{
+        // var table = $('<table>').addClass('table');
+        // var tableHeader = $('<tr>');
+
+        //1) sending Ajax request
+        $.get( "/all-students",(data,textStatus,jqXHR )=>{
+            // // 2) CREATING table header
+            // var datakeys = Object.keys(data[0]);
+            // $.each(datakeys, function(i, item) {
+            //     // tableHeader.append($('<th>'+item+'</th>'));
+            //     $("<th/>", { text: item }).appendTo(tableHeader);
+            //     if (i === (datakeys.length - 1)) {
+            //         $("<th/>", { text: 'delet' }).appendTo(tableHeader) 
+            //     }
+            //  })
+            // table.append(tableHeader);
+
+
+
+            // // end of 
+            //     $.each(data, function(i, item) {
+            //         var row = $('<tr></tr>').addClass('student');
+            //         row.append($('<td>'+item.id+'</td>'));
+            //         row.append($('<td>'+item.name+'</td>'));
+            //         row.append($('<td>'+item.place+'</td>'));
+            //         $('<th><button class="btn btn-primary" data-id = '+ item.id+'>Delet<span class="spinner-border spinner-border-sm"></span> </button></th>').appendTo(row)
+            //         table.append(row);
+            //    });
+
+            // $("#loadstudents").append(table);
+
+            $("#loadstudents").append(StuAjax.jsonArrayToHtml(data));
+            StuAjax.adddeletEventsTODOm();
+
+         
+        }); 
+    },
+
+    jsonArrayToHtml:(data)=>{
+        var table = $('<table>').addClass('table');
+        var tableHeader = $('<tr>');
+         // 2) CREATING table header
+         var datakeys = Object.keys(data[0]);
+         $.each(datakeys, function(i, item) {
+             // tableHeader.append($('<th>'+item+'</th>'));
+             $("<th/>", { text: item }).appendTo(tableHeader);
+             if (i === (datakeys.length - 1)) {
+                 $("<th/>", { text: 'delet' }).appendTo(tableHeader) 
+             }
+          })
+         table.append(tableHeader);
+        // end of 
+        $.each(data, function(i, item) {
+            var row = $('<tr></tr>').addClass('student');
+            row.append($('<td>'+item.id+'</td>'));
+            row.append($('<td>'+item.name+'</td>'));
+            row.append($('<td>'+item.place+'</td>'));
+            $('<th><button class="btn btn-primary" data-id = '+ item.id+'>Delet<span class="spinner-border spinner-border-sm"></span> </button></th>').appendTo(row)
+            table.append(row);
+        });
+
+        return table;
+    },
+
     submitStudent: (event) => {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
@@ -83,6 +149,7 @@ const StuAjax = {
         event.preventDefault();
 
         console.log($("#createStudent").serialize());
+
 
 
 

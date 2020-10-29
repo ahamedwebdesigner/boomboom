@@ -51,6 +51,12 @@ let students = [
     { id: 30, name: 'tiger', place: 'Amazon' }
 ]
 
+let students2 = [
+    { id: 10, nameStudent: 'Arshiya', place: 'anantapur' },
+    { id: 20, nameStudent: 'scott', place: 'America' },
+    { id: 30, nameStudent: 'tiger', place: 'Amazon' }
+]
+
 
 app.get('/jqajax', function (req, res) {
     res.render('jqajax');
@@ -93,8 +99,9 @@ app.post('/store-student', function (req, res) {
 
 app.get('/all-students', function (req, res) {
     setTimeout(() => {
-        res.json(students)
-    }, 4000);
+        // res.json(students)
+        res.json(students2)
+    }, 1000);
 });
 
 // app.get('/student-delet', function (req, res) {
