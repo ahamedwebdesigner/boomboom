@@ -6,7 +6,7 @@ var appconfig = require('./config');
 // reading file
 var fs = require("fs");
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());      // if needed
 app.use(express.static(path.join(__dirname, "public")));
 
