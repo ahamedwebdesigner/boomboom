@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Data convertins :  </h1> 
+        <ul>
+            <li> Number => string </li>
+            <li> string => Number </li>
+        </ul>
+    <script>
+        
+   /*     ////////////////////////////////////////////////////
+        //            Number -> string convertion
+        ////////////////////////////////////////////////////
+
+        // 4 methods
+            //1) number + ''
+            //2) `${number}`
+            //3) String(number)
+            //4) number.toString()
+
+                // concating with empty string 
+                var num = 45;
+                var str = '' + num;
+                console.log(typeof num)
+                console.log(typeof str)
+
+                //template variable
+                var harshNum = 108;
+                console.log( `${harshNum}`);
+                console.log(typeof `${harshNum}`);
+   
+                // string of consgtructor
+                console.log(String(Math.PI));
+                console.log(String(5789.56700));
+
+                // to string
+
+                //console.log( 20.toString()); //error
+
+                console.log( 20 .toString()) 
+                console.log( (20).toString()) 
+                console.log(typeof (20).toString()) 
+
+               // converting custom objects to string
+               function Dog(name) {
+                this.name = name;
+               }
+               Dog.prototype.toString =  () => "The doges name is "+`${this.name}`;
+               
+
+
+               const dog1 = new Dog('Gabby');
+               console.log(dog1);
+               console.log(dog1.toString());
+
+
+               console.log(new Date());
+               console.log(new String("hi"));
+               console.log(new Array("hi",'hellow'));
+               console.log(new Object({name:"mustaq"}));
+               console.log(new Number('2000'));
+  
+        ////////////////////////////////////////////////////
+        //            string -> Number  convertion
+        ////////////////////////////////////////////////////
+         
+        
+        // 1) parseInt
+        // 2) parseFloat
+        // 3) Math.floor
+        // 4) Math.ceil
+
+        //parseInt(string [, radix]) 
+
+            //If string argument is not a string, then it is converted to one using the ToString abstract operation
+            //radix is a integer between 2 and 36 that represents the radix (the base in mathematical numeral systems) of the string. 
+            //  If the radix parameter is omitted, JavaScript assumes the following:
+
+
+*/
+        let str = '353';
+        let fltStr = '355.27';
+        let binStr = '10011';
+        let octStr = '0234';
+        let hexStr = '0x234';
+
+        let numstratfirst = '2333.999hello';
+        let numstratlast = 'hello2333.999';
+        let nanStr = 'hello';
+
+        console.log(parseInt(str));
+        console.log(typeof parseInt(str));
+
+        console.log(parseInt(fltStr));
+        console.log(typeof parseInt(fltStr));
+
+        console.log(parseInt(binStr,2));
+        console.log(parseInt(binStr));
+
+        console.log(parseInt(octStr,8));
+        console.log(parseInt(octStr));
+
+        console.log(parseInt(hexStr,16));
+        console.log(parseInt(octStr));
+
+        console.log(parseInt(numstratfirst));
+        console.log(parseInt(numstratlast));
+
+        console.log(parseInt(nanStr));
+
+       
+        // parsrFloat()
+    /*   //-----------------------------
+
+
+        let intstr = '100';
+        let fltStr2 = '100.21';
+        let flotstrfirst = '100.21AAAAAAAAAA';
+        let flotstrlast = 'dddddd100.21';
+        let nanStr2 = 'bye';
+
+        console.log(parseFloat(intstr));
+        console.log(parseFloat(fltStr2));
+        console.log(parseFloat(flotstrfirst));
+        console.log(parseFloat(flotstrlast));
+        console.log(parseFloat(nanStr2));
+
+        console.log(parseFloat('314e-2'));
+        console.log(parseFloat('314e2'));
+
+        console.log(parseFloat('0.0314E+2'));
+        console.log(parseFloat('0.0314E+2someting'));
+        console.log(parseFloat({ toString: function() { return "3.14" } }));
+
+
+
+    // 3) using math.floor    & math.ceil        
+    let str = '100';
+    let fltStr = '99.89';
+    let nanStr = 'byehello';
+
+    console.log(Math.floor(str));
+    console.log(typeof Math.floor(str));
+
+    console.log(Math.floor(fltStr));
+    console.log(typeof Math.floor(fltStr));
+
+    console.log(Math.floor(nanStr));
+    console.log(typeof Math.floor(nanStr));
+
+
+    console.log("===============================");
+    console.log(Math.ceil(str));
+    console.log(typeof Math.ceil(str));
+
+    console.log(Math.ceil(fltStr));
+    console.log(typeof Math.ceil(fltStr));
+
+    console.log(Math.ceil(nanStr));
+    console.log(typeof Math.ceil(nanStr));
+
+// 4) using urinary concat operters
+
+let str = '100';
+let fltStr = '100.21';
+let fltStr2 = '100OOddddddddddd';
+let nanStr = 'greetings';
+
+console.log(+str);
+console.log(typeof +str);
+console.log(+fltStr);
+console.log(typeof +fltStr);
+
+console.log(+fltStr2);
+console.log(typeof +fltStr2);
+
+
+console.log(+nanStr);
+console.log(typeof +nanStr);
+
+// 5) multiplied by one
+let str = '100';
+let fltStr = '100.21';
+let nanStr = 'greetings';
+
+console.log(str * 1);
+console.log(typeof (str * 1));
+
+console.log(fltStr * 1);
+console.log(typeof (fltStr * 1));
+console.log(nanStr * 1);
+console.log(typeof (nanStr * 1));
+
+console.log(str * 1);
+console.log(typeof (str * 1));
+
+
+
+//Note: inter converting Number to string using constructors
+
+let numToStr = new String(2); 
+
+console.log("---------------------------");
+console.log(numToStr);
+console.log(typeof numToStr);
+
+
+let strToNum = new Number('2'); // Number {2}
+console.log(strToNum);
+console.log(typeof strToNum);
+*/
+
+
+/*//Number()
+//------------------------------
+Note: Number() method is little different form parseInt while
+converting numberstrings with charectors
+
+    console.log(Number('123')); //123
+     console.log(typeof Number('123')); //NaN
+    console.log(Number('123hellow'));//NaN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// referance
+----------------------------------------
+
+The following examples all return 15
+
+parseInt('0xF', 16)
+parseInt('F', 16)
+parseInt('17', 8)
+parseInt(021, 8)
+parseInt('015', 10)    // but `parseInt(015, 8)` will return 13
+parseInt(15.99, 10)
+parseInt('15,123', 10)
+parseInt('FXX123', 16)
+parseInt('1111', 2)
+parseInt('15 * 3', 10)
+parseInt('15e2', 10)
+parseInt('15px', 10)
+parseInt('12', 13)
+
+
+The following examples all return NaN:
+----------------------------------------
+
+parseInt('Hello', 8)  // Not a number at all
+parseInt('546', 2)    // Digits other than 0 or 1 are invalid for binary radix
+
+
+    */
+
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Data convertins :  </h1> 
+        <ul>
+            <li> Number => Array </li>
+            <li> string => Array </li>
+        </ul>
+    <script>
+    
+    // convet number to string and then split to array 
+    // 
+    var n =  123456789;
+    var array1 = (""+n).split("");
+    console.log(array1); // Note : all the elements are strings
+
+    var array2 = (""+n).split("").map((e)=>parseInt(e));
+    console.log(array2)
+
+
+    //q1: WJsF to remove charecters in numerical string
+    //charRemover("abcd1234") => 1234
+    //Logic: using regular expression in a replace function we can remove all charectors
+
+    console.log("abcd1234".replace(/[^\d]/gi, '')); // removes not a number digit with nothing
+    console.log("abcd1.234-10".replace(/[^\d.-]/gi, '')); //allows . and -
+    console.log(typeof parseInt("abcd1234".replace(/[^\d]/gi, '')));
+
+    //solution
+    //    /[^\d]/gi : matchs set of non dighit charecters globaly and case insensitively
+    //    /[^\d.-]/gi : matchs set of non dighit . and - charecters globaly and case insensitively
+
+    //    /[\d]/gi : matchs set of  dighit charecters globaly and case insensitively
+
+    function charRemover(AlphaNumStr){
+        return AlphaNumStr.replace(/[^\d]/gi,'');
+    }
+    console.log(charRemover("One111,22-slkdjfjieie3874"));
+
+
+    
+    // Q2: WJsF to count number of numbers present in a string
+    //numCounter("11122jsjshf"); =>
+
+    function numCounter(AlphaNumStr){
+        return AlphaNumStr.replace(/[^\d]/gi,'').length;
+    }
+    console.log(numCounter("11122jsjshf"));
+ 
+   console.log("$123-456$".replace(/[$-]/gi,'')); 
+
+
+
+
+
+
+
+
+    // console.log((123456789).toString(10).split(""));
+    // console.log((123456789).toString(10).split("").join(''));
+    // console.log(typeof (123456789).toString(10).split("").join(''));
+    
+
+
+
+    </script>
+</body>
+</html>

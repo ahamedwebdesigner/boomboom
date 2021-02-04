@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> String  :  Interview questions </h1> 
+        <ul>
+            <li> splitting words in to letter array </li>
+            <li> splitting sentense into array of words </li>
+        </ul>
+    <script> 
+    
+        // console.log(typeof -"20");
+        // console.log(typeof "20");
+
+        //splitting words
+        // console.log("Hellow   world".split(" "));
+        // console.log("Hi Iam Mustaq ahamed".split(" ",3));
+        // console.log("Hi Iam      Mustaq ahamed".split(/[\s]+/));
+
+
+        //Q1: reverse words -> convert string to array -> reves elements in array -> convert back in
+        // to string
+        console.log("hellow all I am  syed I am doing great".split(/[\s]+/))
+        console.log("hellow all I am  syed I am doing great".split(/[\s]+/).reverse())
+
+         console.log("hellow all I am  syed I am doing great".split(/[\s]+/).reverse().join(' '))
+
+       function revWords (str){return str.split(/[\s]+/).reverse().join(' ')}
+       console.log(revWords("hellow all I am  syed I am doing great"))
+
+       // Q2: converting string in to initcap 
+        //logic: convert string to array -> cnvert each word first letter in to upper case and 
+        // leave rest of the word as it is
+
+    //    console.log("hellow all I am  syed I am doing great".split(/[\s]+/).map((word)=>word.charAt(0).toUpperCase()+word.slice(1)));
+    //    function intCap(str){return str.split(/[\s]+/).map((word)=>word.charAt(0).toUpperCase+word.split(1))}
+
+
+       //Q3. cout the given word in a sentanse
+       // countOccurance("hellow I am fine I am good ","am") => 2
+
+        console.log("hellow I am fine Hellow".match(/hellow/gi).length);  
+
+        function countOccurance(str,occurWord){
+            let count =0;
+            str.split(/[\s]+/).forEach(i => {
+                if(i===occurWord) count++;
+            });
+            return count;
+        }
+        console.log(countOccurance("hellow I am fine I I am good ","I"));
+
+
+        function countOccurance(str,occurWord){
+            let count =0;
+            str.toLowerCase().split(/[\s]+/).forEach(i => {
+                if(i===occurWord.toLowerCase()) count++;
+            });
+            return count;
+        }
+        console.log(countOccurance("hellow I am fine I I i am good ","I"));
+
+
+    </script>
+</body>
+</html>
