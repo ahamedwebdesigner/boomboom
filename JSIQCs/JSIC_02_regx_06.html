@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regular expressions</title>
+</head>
+<body>
+    <h1> Regular expressions  : </h1> 
+    <ul>
+        <li> splitting words in to letter array </li>
+        <li> splitting sentense into array of words </li>
+    </ul>
+    <script> 
+
+// console.log ( "dog and donky is coming".replace(/dog|donky/ig,""))
+// console.log ( "dog ,cat, donky is coming".replace(/(dog|donky|cat)/ig,""))
+
+// // joining some words after word
+// console.log("I love Mustaq".replace(/(mustaq)/ig, "$& and JavaScript"))        
+// console.log("I love Mustaq".replace(/^([\w]+)/ig, "$& and JavaScript"))        
+
+         
+
+    // regexp = new RegExp("pattern", "flags");
+    // regexp = /pattern/;             // no flags
+    // regexp = /pattern/gmi;          // with flags g,m and i (to be covered soon)
+
+
+
+////////////////////////////
+
+////////////////// truethi values 
+//  null| undefined|NaN|empty string ("")|0|false
+
+// console.log(null+null)//0
+// console.log(undefined+undefined) // NaN
+// console.log(null+undefined) // Nan
+// console.log(false+NaN);//Nan
+// console.log(true+NaN);
+
+// console.log(null+"") // null
+// console.log(undefined+"")
+// console.log(null+NaN)
+    
+
+// if(!null){console.log("given value is null")}
+// if(!undefined){console.log("given value is undefined")}
+
+
+// let veb=null;
+// if(!veb)console.log("give value is falsy");
+
+
+// //checking empty string
+// if(" ".trim()==='')console.log("give string is empty");
+// if(!" ".trim().length)console.log("give string is empty");
+// if(/^ *$/.test("  "))console.log("give string is empty");
+// if("  ".replace(/\s/g,"") == "")console.log("give string is empty");
+
+
+
+// var int= true;
+
+// if(int){   } // checking for true value
+// if(!int){   } // checking for false value with out using else
+
+
+////////////////
+/*
+1) str.match
+2) str.replace
+3) str.split
+4) regexp.test
+*/
+
+/*  --------------   str.match   ------------------------    */
+// str.match(//) gives array as output
+// we can find any string present or not just like indexOf()
+//let res = "Hellow I am Arshiya and I am doing greate India".match(/ i /ig);
+// let res = "Hellow I am Arshiya and I am doing greate India".match(/ Arshiya/ig);
+
+// console.log("JavaScript".match(/HTML/)); // null if not matched
+/*  --------------   str.match   ------------------------    */
+
+/*  --------------   str.matchAll   ------------------------    */
+// let res = "Hellow I am Arshiya and I am doing greate Arshiya".matchAll(/ Arshiya/ig);
+// for (let match of res) {
+//     console.log(match);
+// }
+
+
+//let res = "Arshiya is good Arshiya".matchAll(/^Arshiya/ig); //Arshiya at the begening of sentance
+
+//let res = "Arshiya is good Arshiya".matchAll(/Arshiya$/ig); // at the ending of the string
+
+let res = "Arshiya is Arshiya good Arshiya".matchAll(/\bArshiya\b/ig); // at the ending of the string
+for (let match of res) {
+    // console.log(JSON.stringify(match));
+    console.log(match);
+}
+
+
+
+/*  --------------   str.matchAll   ------------------------    */
+
+// console.log(res);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
